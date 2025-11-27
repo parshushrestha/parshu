@@ -4,28 +4,198 @@
   <title>Parshu-Portfolio</title>
   <link rel="stylesheet" href="tutorial.css" />
 </head>
+
 <body>
+
+  <div class="container">
+    <h1>Dark & Light Mode with LocalStorage</h1>
+    <button id="themeBtn">Switch Mode</button>
+  </div>
+
   <header>
-    <h1></h1>
+    <h1>Parshu Shrestha</h1>
     <p>Unity Developer & Programmer</p>
   </header>
 
   <section id="about">
     <h2>About Me</h2>
-    <img src="" alt="Hello kitty's photo" width="200" />
-    <p>I am currently studying in BIC, 2nd year. I love building immersive game environments and solving practical programming challenges.</p>
+    <img src="WhatsApp Image 2025-05-01 at 11.52.50.jpeg" alt="Parshu's photo" width="200" />
+    <p>
+      I am currently studying in BIC, 2nd year. I love building immersive game environments
+      and solving practical programming challenges. I am also passionate about music,
+      I play guitar in my band, and I have started a business by making a band practice hall
+      in my own house.
+    </p>
   </section>
 
   <section id="projects">
-    <h2>Projects</h2>
-    <div class="project">
-      <h3>Gate Control System</h3>
-      <p>Unity script using Box Collider and MonoBehaviour to control gate animations.</p>
-    </div>
-    <div class="project">
-      <h3>Crime scene Simulation</h3>
-      <p>AudioSource-based siren effect with interactive triggers,fr.</p>
-    </div>
+  <h2>Projects</h2>
+
+  <div class="project" data-link="https://parshushrestha.github.io/parshu/">
+    <h3>My portfolio</h3>
+    <p></p>
+  </div>
+
+</section>
+<script>
+  
+
+const projects = document.querySelectorAll(".project");
+
+projects.forEach(project => {
+  project.style.cursor = "pointer"; 
+  project.addEventListener("click", () => {
+    const url = project.getAttribute("data-link");
+    if (url) {
+      window.location.href = url; 
+    }
+  });
+});
+</script>
+
+
+  <h2>My Guitar Video</h2>
+  <video controls width="640" height="300" poster="Screenshot 2025-11-24 at 08.32.02.png">
+    <source src="WhatsApp Video 2025-11-19 at 07.44.19.mp4" type="video/mp4">
+  </video>
+
+  <h2>My Guitar Audio</h2>
+  <audio controls>
+    <source src="Happy-Birthday-To-You-Ji-Teddy-Kids-Song.mp3" type="audio/mpeg">
+  </audio>
+
+  <hr>
+      <section id="slider">
+  <h2>My Image Slider</h2>
+  <div class="slider-container">
+    <button class="prev">⟨</button>
+    <img id="sliderImage" src="bic.jpeg" alt="Slider Image">
+    <img id="sliderImage" src="Biratnagar.jpeg" alt="Slider Image">
+     <img id="sliderImage" src="AAA.jpeg" alt="Slider Image">
+    <button class="next">⟩</button>
+  </div>
+</section>
+
+      <button class="prev"></button>
+      <button class="next"></button>
+  </div>
+</section>
+<script>
+
+const images = [
+  "bic.jpeg",
+  "Biratnagar.jpeg",
+  "AAA.jpeg"
+];
+
+let currentIndex = 0;
+
+const sliderImage = document.getElementById("sliderImage");
+const prevBtn = document.querySelector(".prev");
+const nextBtn = document.querySelector(".next");
+
+function showImage(index) {
+  sliderImage.src = images[index];
+}
+
+
+prevBtn.addEventListener("click", () => {
+  currentIndex = (currentIndex - 1 + images.length) % images.length;
+  showImage(currentIndex);
+});
+
+
+nextBtn.addEventListener("click", () => {
+  currentIndex = (currentIndex + 1) % images.length;
+  showImage(currentIndex);
+});
+</script>
+
+  <section id="contact">
+    <h2>Contact Form</h2>
+
+    <form id="contactForm">
+      <label>Name:</label><br>
+      <input type="text" id="name"><br><br>
+
+      <label>Email:</label><br>
+      <input type="email" id="email"><br><br>
+
+      <label>Message:</label><br>
+      <textarea id="message"></textarea><br><br>
+
+      <button type="submit">Send</button>
+    </form>
+
+    <p id="msg"></p>
   </section>
+
+  <div class="section">
+    <h2>Contact Me</h2>
+    <p>Email: parshushrestha42@gmail.com</p>
+    <p>Phone: 9762947106</p>
+    <p>Location: Biratnagar, Nepal</p>
+  </div>
+
+  <button class="signup-btn" id="signupBtn">UP</button>
+
+ 
+  <script>
+  
+    const signupBtn = document.getElementById('signupBtn');
+    signupBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    const body = document.body;
+    const btn = document.getElementById("themeBtn");
+
+    let savedTheme = localStorage.getItem("theme");
+
+    if (savedTheme === "dark") {
+      body.classList.add("dark");
+    } else {
+      body.classList.add("light");
+    }
+
+    btn.addEventListener("click", () => {
+      if (body.classList.contains("light")) {
+        body.classList.replace("light", "dark");
+        localStorage.setItem("theme", "dark");
+      } else {
+        body.classList.replace("dark", "light");
+        localStorage.setItem("theme", "light");
+      }
+    });
+
+    document.getElementById("contactForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      let name = document.getElementById("name").value.trim();
+      let email = document.getElementById("email").value.trim();
+      let message = document.getElementById("message").value.trim();
+      let msg = document.getElementById("msg");
+
+  
+      if (name === "" || email === "" || message === "") {
+        msg.textContent = "All fields are required!";
+        msg.style.color = "red";
+        return;
+      }
+
+      localStorage.setItem("contactName", name);
+      localStorage.setItem("contactEmail", email);
+      localStorage.setItem("contactMessage", message);
+
+      msg.textContent = "Form submitted successfully!";
+      msg.style.color = "green";
+
+     
+      setTimeout(() => {
+        window.location.href = "form-details.html";
+      }, 1000);
+    });
+  </script>
+
 </body>
 </html>
